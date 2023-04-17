@@ -1,0 +1,14 @@
+{
+  "version": 3,
+  "file": "bundle.css",
+  "sources": [
+    "App.svelte",
+    "Tarea.svelte"
+  ],
+  "sourcesContent": [
+    "<script>\n\timport Navbar from './components/Navbar.svelte';\n\timport Tarea from './components/Tarea.svelte';\n</script>\n\n<main class=\"fondo\">\n\t<Navbar />\n\t<Tarea />\n</main>\n\n<style>\n\t.fondo {\n\t\tbackground-image: url(../assets/img/fondo.png);\n\t\theight: 100vh;\n\t\tbackground-position: center;\n\t\tbackground-size: cover;\n\t}\n</style>",
+    "<script>\n    let tareas = [];\n    let nombreTarea = '';\n\n    function agregarTarea(event){\n        if(event.key === 'Enter'){\n\n            const tarea = {\n                nombre: nombreTarea,\n                estado: false\n            }\n            tareas.push(tarea);\n            console.log(tareas);\n            tareas = tareas;\n            nombreTarea = '';\n        }\n    }\n\n    function deleteTarea(i){\n        tareas.splice(i, 1);\n        tareas = tareas;\n    }\n\n    function actualizarTarea(tarea, i){\n        tareas[i].estado = !tarea.estado\n    }\n</script>\n\n<div>\n   <div class=\"container mt-5\">\n       <div class=\"row\">\n           <div class=\"col-lg-8 offset-lg-2\">\n              <input type=\"text\" class=\"form-control form-control-lg\"\n                    on:keydown={agregarTarea}\n                    bind:value={nombreTarea}    \n                    placeholder=\"Ingresar tarea..\">\n              <br>\n            </div>\n           \n           <div class=\"col-lg-6 offset-lg-3\">\n               {#if tareas.length === 0}\n               <div class=\"card p-2\">\n                   <h6>No hay tareas para mostrar</h6>\n               </div>\n               {/if}\n\n               <ul class=\"list-group\">\n                {#each tareas as tarea, i}\n                   <li class=\"list-group-item d-flex justify-content-between\">\n                       <span class={tarea.estado === true ? 'text-success cursor' : 'cursor'} on:click={() => actualizarTarea(tarea, i)}>\n                           <i class={tarea.estado === true ? 'fas fa-check-circle' : 'far fa-circle'} ></i>\n                       </span>\n                        <h5>{ tarea.nombre }</h5>\n                        <span class=\"cursor text-danger\" on:click={() => deleteTarea(i)}>\n                            <i class=\"fas fa-trash-alt\"></i>\n                        </span>\n                   </li>\n                   {/each}\n               </ul>\n           </div>\n       </div>\n   </div>\n</div>\n\n<style>\n    .form-control-lg {\n        font-size: 1.8rem;\n    }\n    input {\n        text-align: center;\n    }\n\n    .cursor {\n        cursor: pointer;\n    }\n</style>"
+  ],
+  "names": [],
+  "mappings": "AAWC,qBAAO,CACN,gBAAgB,CAAE,4BAA4B,CAC9C,MAAM,CAAE,KAAK,CACb,mBAAmB,CAAE,MAAM,CAC3B,eAAe,CAAE,KAClB;ACiDG,8BAAiB,CACb,SAAS,CAAE,MACf,CACA,mBAAM,CACF,UAAU,CAAE,MAChB,CAEA,qBAAQ,CACJ,MAAM,CAAE,OACZ"
+}
